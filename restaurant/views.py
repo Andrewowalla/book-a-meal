@@ -6,9 +6,15 @@ from customer.models import OrderModel
 
 class OrderDetails(LoginRequiredMixin, UserPassesTestMixin, View):
     def get(self, request, pk, *args, **kwargs):
-        orde = OrderModel.objects.get(pk=pk)
+        order = OrderModel.objects.get(pk=pk)
+        context = {
+            'order': order
+        }
+        return render(request,'restaurant/order-details.html', context)
         
     def test_func(self):
         return self.request.user.groups.filter(name='staff').exists()
 
 
+
+    
