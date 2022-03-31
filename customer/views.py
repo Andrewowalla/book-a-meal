@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.views import View
+from django.core.mail import send_mail
 from .models import *
+
+
 class Index(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'customer/index.html')
@@ -66,6 +69,20 @@ def post (self,request, *args, **kwargs):
         
         )
     order.items.add(*item_ids)
+
+    # confirmation email to the user
+
+    body =('Thank you for your order! Your order is taken! \n'
+    f'Your total: {price}\n'
+    'Thank you for your order!')
+
+    send_mail(
+        'Thank You For your Order!'
+        body,
+        'example@example.com',
+        [email]
+        fail_silently=False
+    )
 
     context = {
         'items': order_items['items'],
