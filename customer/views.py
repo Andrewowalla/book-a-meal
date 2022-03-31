@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-
+from .models import *
 class Index(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'customer/index.html')
@@ -38,7 +38,7 @@ def post (self,request, *args, **kwargs):
     for item in items:
         menu_item = MenuItem.objects.get(pk__contains=int(item))
         item_data ={
-            'id':menu_item.pk
+            'id':menu_item.pk,
             'name':menu_item.name,
             'price':menu_item.price
         }
@@ -48,14 +48,16 @@ def post (self,request, *args, **kwargs):
         price = 0
         item_ids =[]
 
-        for item in order_items['items']:
-            price += item ['price']
-            item_ids.append(item['id'])
+    for item in order_items['items']:
+        price += item ['price']
+        item_ids.append(item['id'])
 
-        order = OrderModel.objects.create(price=price)
-        order.items.add(*item_ids)
+    order = OrderModel.objects.create(price=price)
+    order.items.add(*item_ids)
 
-        context = {
-            'items': order_items['items']
-            'price':price
-        }
+    context = {
+        'items': order_items['items'],
+        'price':price
+    }
+
+    return render(request, 'customer/order_confirmation.html',context)
