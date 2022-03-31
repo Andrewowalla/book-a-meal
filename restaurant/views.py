@@ -11,6 +11,17 @@ class OrderDetails(LoginRequiredMixin, UserPassesTestMixin, View):
             'order': order
         }
         return render(request,'restaurant/order-details.html', context)
+
+    def post(self, request, pk, *args, **kwargs):
+        order = OrderModel.object.get(pk=pk)
+        order.is_shipped = True
+        order.save()
+
+        context = {
+            'order': order
+        }
+
+        return render(request, 'restaurant/order-details.html', context)
         
     def test_func(self):
         return self.request.user.groups.filter(name='staff').exists()
