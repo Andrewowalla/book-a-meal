@@ -77,10 +77,10 @@ def post (self,request, *args, **kwargs):
     'Thank you for your order!')
 
     send_mail(
-        'Thank You For your Order!'
+        'Thank You For your Order!',
         body,
         'example@example.com',
-        [email]
+        [email],
         fail_silently=False
     )
 
