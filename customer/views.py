@@ -11,7 +11,7 @@ class About(View):
         return render(request, 'customer/about.html')
 
 class Menu(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):*
         menu_items = MenuItem.objects.all()
 
         context = {
