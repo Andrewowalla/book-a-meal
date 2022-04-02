@@ -89,7 +89,7 @@ def post (self,request, *args, **kwargs):
         'price':price
     }
 
-    return redirect()
+    return redirect('order-confirmation', pk=order.pk)
 
 class OrderConfirmation(View):
     def get(self,request,pk,*args,**kwargs):
