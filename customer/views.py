@@ -108,4 +108,4 @@ class OrderConfirmation(View):
 
 class OrderPayConfirmation(view):
     def get(self, request, *args, **kwargs):
-        return render(request,'customer/order_pay_confirmation.html')
+        return render(request, 'customer/order_pay_confirmation.html')
