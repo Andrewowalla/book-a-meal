@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views import View
 from django.core.mail import send_mail
 from .models import *
@@ -89,4 +89,16 @@ def post (self,request, *args, **kwargs):
         'price':price
     }
 
-    return render(request, 'customer/order_confirmation.html',context)
+    return redirect()
+
+class OrderConfirmation(View):
+    def get(self,request,pk,*args,**kwargs):
+        order = OrderModel.objects.get(pk=pk)
+
+        context = {
+            'pk': order.pk,
+            'items': order.items,
+            'price': order.price,
+        }
+
+        return render(request, 'customer/order_confirmation.html',context)
