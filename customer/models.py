@@ -2,7 +2,7 @@ from ast import Delete
 
 from django.db import models
 
-class OrderModel(models.Model):
+class OrderModels(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=7, decimal_places=2)
     items = models.ManyToManyField(
