@@ -1,12 +1,12 @@
 from ast import Delete
+from unicodedata import category
 
 from django.db import models
 
 class OrderModels(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=7, decimal_places=2)
-    items = models.ManyToManyField(
-        'MenuItem', related_name='order', blank=True)
+    items = models.ForeignKey('MenuItem', related_name='order',on_delete=models.CASCADE, blank=True)
     name = models.CharField(max_length=50, blank=True)
     email = models.CharField(max_length=50, blank=True)
     street = models.CharField(max_length=50, blank=True)
@@ -29,8 +29,8 @@ class MenuItem(models.Model):
     description=models.TextField()
     image =models.ImageField(upload_to='images/')
     price =models.DecimalField(max_digits=5,decimal_places=2)
-    category=models.ManyToManyField('Category', related_name='item')
-
+    category=models.ForeignKey('Category', related_name='item', on_delete=models.CASCADE)
+    
     def __str__(self):
         return self.name
 
@@ -40,10 +40,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
-class OrderModel(models.Model):
+class OrderModels(models.Model):
     created_on = models.DateTimeField(auto_now_add = True )
     price = models.DecimalField(max_digits=7, decimal_places=2)
-    items=models.ManyToManyField('MenuItem',related_name='order',blank=True)
+    items=models.ForeignKey('MenuItem',related_name='order',blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, blank=True)
     email=models.CharField(max_length=50, blank=True)
     street =models.CharField(max_length=50 , blank=True)

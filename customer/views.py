@@ -2,11 +2,8 @@ import json
 from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Q
-from .models import MenuItem
 from django.core.mail import send_mail
-
-from .models import *
-from .models import MenuItem, Category, OrderModel
+from .models import MenuItem, Category, OrderModels
 
 
 
@@ -26,7 +23,7 @@ class Menu(View):
         menu_items = MenuItem.objects.all()
 
         context = {
-            'menu-items': menu-items
+            'menu_items': menu_items
         }
 
         return render(request, 'customer/menu.html', context)
@@ -108,7 +105,7 @@ class Order(View):
             price += item['price']
             item_ids.append(item['id'])
 
-        order = OrderModel.objects.create(
+        order = OrderModels.objects.create(
             price=price,
             name=name,
             email=email,
@@ -140,7 +137,7 @@ class Order(View):
 
 class OrderConfirmation(View):
     def get(self, request, pk, *args, **kwargs):
-        order = OrderModel.objects.get(pk=pk)
+        order = OrderModels.objects.get(pk=pk)
 
         context = {
             'pk': order.pk,
@@ -153,16 +150,16 @@ class OrderConfirmation(View):
     def post(self, request, pk, *args, **kwargs):
         data = json.loads(request.body)
 
-    send_mail(
-        'Thank You For your Order!',
-        body,
-        'example@example.com',
-        [email],
-        fail_silently=False
-    )
+    # send_mail(
+    #     'Thank You For your Order!',
+    #     body,
+    #     'example@example.com',
+    #     [email],
+    #     fail_silently=False
+    # )
 
         if data['isPaid']:
-            order = OrderModel.objects.get(pk=pk)
+            order = OrderModels.objects.get(pk=pk)
             order.is_paid = True
             order.save()
 
