@@ -150,16 +150,32 @@ class OrderConfirmation(View):
 
         return render(request, 'customer/order_confirmation.html', context)
 
-    def post(self, request, pk, *args, **kwargs):
-        data = json.loads(request.body)
+#     def post(self, request, pk, *args, **kwargs):
+#         data = json.loads(request.body)
 
-    send_mail(
-        'Thank You For your Order!',
-        body,
-        'example@example.com',
-        [email],
-        fail_silently=False
-    )
+#     # send_mail(
+#     #     'Thank You For your Order!',
+#     #     body,
+#     #     'example@example.com',
+#     #     [email],
+#     #     fail_silently=False
+#     # )
+
+#     if data['isPaid']:
+#             order = OrderModel.objects.get(pk=pk)
+#             order.is_paid = True
+#             order.save()
+
+#         return redirect('payment-confirmation')
+
+
+# class OrderPayConfirmation(View):
+#     def get(self, request, *args, **kwargs):
+#         return render(request, 'customer/order_pay_confirmation.html')
+
+
+def post(self, request, pk, *args, **kwargs):
+        data = json.loads(request.body)
 
         if data['isPaid']:
             order = OrderModel.objects.get(pk=pk)
