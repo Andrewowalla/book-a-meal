@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Q
 from django.core.mail import send_mail
+<<<<<<< HEAD
 from .models import *
 from django.contrib import auth,messages
 
@@ -10,6 +11,40 @@ from django.contrib import auth,messages
 
 
 
+=======
+from .models import MenuItem, Category, OrderModel
+from customer.forms import *
+
+def register(request):
+    if request.method=="POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            return redirect('login')
+            
+    else:
+        form = UserRegisterForm()
+        return render(request,"registration/register.html",{'form':form}) 
+def loginPage(request):
+    if request.user.is_authenticated():
+        return redirect('index')
+
+    if request.method == "POST":
+        username=request.POST.get("username")
+        password = request.POST.get("password")
+        user = auth.authenticate(username=username, password=password)
+        
+        if user is not None:
+                auth.login(request,user)
+                messages.info(request,"You are now logged in.")
+                return redirect('index')
+            
+        else:
+            messages.error(request,"Invalid username or password.")
+
+    return render(request,'registration/login.html')
+>>>>>>> development
 class Index(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'customer/index.html')
@@ -168,3 +203,6 @@ class MenuSearch(View):
         }
 
         return render(request, 'customer/menu.html', context)
+
+    
+      
