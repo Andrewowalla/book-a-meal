@@ -1,9 +1,11 @@
 {% extends 'customer/base.html' %}
 
 {% block content %}
+<section id="home" class="hero">
 <div class="container mb-5">
     <div class="row justify-content-center mt-5">
         <div class="col-md-8 col-sm-12 offset-md-1 p-4 text-center">
+            <br><br><br>
             <h1>Book A Meal</h1>
         </div>
     </div>
@@ -13,4 +15,5 @@
             <a  href="{% url 'order'%}"class="btn btn-outline-primary"> Order Now!</a>
        </div>
 </div>
+</section>
 {% endblock %}
