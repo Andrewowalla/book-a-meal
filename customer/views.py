@@ -40,7 +40,6 @@ class Order(View):
         email = request.POST.get('email')
         street = request.POST.get('street')
         city = request.POST.get('city')
-        
 
         order_items = {
             'items': []
