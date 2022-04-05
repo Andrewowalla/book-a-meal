@@ -84,7 +84,7 @@ class Order(View):
         send_mail(
             'Thank You For Your Order!',
             body,
-            'example@example.com',
+            'dubowhamaan@gmail.com',
             [email],
             fail_silently=False
         )
