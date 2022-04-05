@@ -2,12 +2,8 @@ import json
 from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Q
-from .models import MenuItem
 from django.core.mail import send_mail
-
-from .models import *
 from .models import MenuItem, Category, OrderModel
-
 
 
 class Index(View):
@@ -20,44 +16,6 @@ class About(View):
         return render(request, 'customer/about.html')
 
 
-
-class Menu(View):
-    def get(self, request, *args, **kwargs):
-        menu_items = MenuItem.objects.all()
-
-        context = {
-            'menu-items': menu-items
-        }
-
-        return render(request, 'customer/menu.html', context)
-
-class MenuSearch(View):
-    def get(self,  request, *args, **kwargs):
-        query = self.request.GET.get("q")
-
-        menu_items = MenuItem.object.filter(
-            Q(name__icontains=query) |
-            Q(price__icontains=query) |
-            Q(description__icontains=query)
-        ) 
-
-        context = {
-            'menu_items': menu_items
-        }
-
-        return render(request, 'customer/menu.html', context)        
-class Order(View):
-    def get(self,request, *args, **kwargs):
-
-        
-        #get each item from each category
-        appetizers = MenuItem.objects.filter(category__name__contains = 'Appetizer')
-        entres = MenuItem.objects.filter(category__name__contains = 'Entre')
-        desserts = MenuItem.objects.filter(category__name__contains = 'Dessert')
-        drinks = MenuItem.objects.filter(category__name__contains = 'Drink')
-
-        #pass into context
-        
 class Order(View):
     def get(self, request, *args, **kwargs):
         # get every item from each category
@@ -68,7 +26,6 @@ class Order(View):
         drinks = MenuItem.objects.filter(category__name__contains='Drink')
 
         # pass into context
-
         context = {
             'appetizers': appetizers,
             'entres': entres,
@@ -84,6 +41,8 @@ class Order(View):
         email = request.POST.get('email')
         street = request.POST.get('street')
         city = request.POST.get('city')
+        state = request.POST.get('state')
+        zip_code = request.POST.get('zip')
 
         order_items = {
             'items': []
@@ -153,14 +112,6 @@ class OrderConfirmation(View):
     def post(self, request, pk, *args, **kwargs):
         data = json.loads(request.body)
 
-    send_mail(
-        'Thank You For your Order!',
-        body,
-        'example@example.com',
-        [email],
-        fail_silently=False
-    )
-
         if data['isPaid']:
             order = OrderModel.objects.get(pk=pk)
             order.is_paid = True
@@ -172,3 +123,31 @@ class OrderConfirmation(View):
 class OrderPayConfirmation(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'customer/order_pay_confirmation.html')
+
+
+class Menu(View):
+    def get(self, request, *args, **kwargs):
+        menu_items = MenuItem.objects.all()
+
+        context = {
+            'menu_items': menu_items
+        }
+
+        return render(request, 'customer/menu.html', context)
+
+
+class MenuSearch(View):
+    def get(self, request, *args, **kwargs):
+        query = self.request.GET.get("q")
+
+        menu_items = MenuItem.objects.filter(
+            Q(name__icontains=query) |
+            Q(price__icontains=query) |
+            Q(description__icontains=query)
+        )
+
+        context = {
+            'menu_items': menu_items
+        }
+
+        return render(request, 'customer/menu.html', context)
