@@ -3,14 +3,34 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Q
 from django.core.mail import send_mail
-from .models import MenuItem, Category, OrderModel
+from .models import *
+from django.contrib import auth,messages
+
+
+
 
 
 class Index(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'customer/index.html')
 
+class Register(View):
+    def register(self, request, *args, **kwargs):
+        if request.method=="POST":
+            form = NewUserForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request,"Registration sucessful.")
+            return redirect('login')   
+        else:
+            messages.error(request,"Invalid Information")
+            form = NewUserForm()
+            context={
+        "form":form}
+        return render(request,'registration/register.html',context)
 
+
+    
 class About(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'customer/about.html')

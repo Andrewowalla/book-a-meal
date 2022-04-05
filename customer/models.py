@@ -33,3 +33,11 @@ class OrderModel(models.Model):
 
     def __str__(self):
         return f'Order: {self.created_on.strftime("%b %d %I: %M %p")}'
+
+    
+class NewsLetterRecipients(models.Model):
+    name = models.CharField(max_length=30)
+    email =models.EmailField()
+
+    def __str__(self):
+        return self.name

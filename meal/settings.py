@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,7 +40,6 @@ AUTHENTICATION_BACKENDS = [
 INSTALLED_APPS = [
     'customer',
     'restaurant',
-    'bootstrap4',
     'crispy_forms',
     'allauth',
     'allauth.account',
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'bootstrap4',
 ]
 
 SITE_ID = 1
@@ -153,3 +154,5 @@ ACCOUNT_ADAPTER = 'restaurant.account_adapter.NoNewUsersAccountAdapter'
 LOGIN_REDIRECT_URL = 'dashboard'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
