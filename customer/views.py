@@ -26,7 +26,7 @@ class Menu(View):
         menu_items = MenuItem.objects.all()
 
         context = {
-            'menu-items': menu-items
+            'menu-items': menu_items
         }
 
         return render(request, 'customer/menu.html', context)
