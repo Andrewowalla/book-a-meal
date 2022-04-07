@@ -15,14 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from customer.views import Index, About, Menu, MenuSearch
+from customer.views import *
 
 from django.urls import path,include
-
+from customer import views as customer_views
 from django.conf.urls.static import static
 from customer.views import *
 import allauth
 from django.conf import settings
+from django.contrib.auth.views import LoginView,LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,7 +35,9 @@ urlpatterns = [
     path('menu/search/', MenuSearch.as_view(), name='menu-search'),
     path('order/',Order.as_view(),name='order'),
 
-
+    path('accounts/register/',customer_views.register, name='register'),
+    path('login/',LoginView.as_view(next_page='index'), name='login'),
+    path('logout/',LogoutView.as_view(next_page='index'), name='logout'),
 
     path('order-confirmation/<int:pk>',OrderConfirmation.as_view(),name='order-confirmation'),
     path('payment-confirmation/',OrderPayConfirmation.as_view(),name='payment-confirmation'),
