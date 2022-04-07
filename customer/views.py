@@ -4,7 +4,37 @@ from django.views import View
 from django.db.models import Q
 from django.core.mail import send_mail
 from .models import MenuItem, Category, OrderModel
+from customer.forms import *
 
+def register(request):
+    if request.method=="POST":
+        form = UserRegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            return redirect('login')
+            
+    else:
+        form = UserRegisterForm()
+        return render(request,"registration/register.html",{'form':form}) 
+def loginPage(request):
+    if request.user.is_authenticated():
+        return redirect('index')
+
+    if request.method == "POST":
+        username=request.POST.get("username")
+        password = request.POST.get("password")
+        user = auth.authenticate(username=username, password=password)
+        
+        if user is not None:
+                auth.login(request,user)
+                messages.info(request,"You are now logged in.")
+                return redirect('index')
+            
+        else:
+            messages.error(request,"Invalid username or password.")
+
+    return render(request,'registration/login.html')
 
 class Index(View):
     def get(self, request, *args, **kwargs):
@@ -41,8 +71,7 @@ class Order(View):
         email = request.POST.get('email')
         street = request.POST.get('street')
         city = request.POST.get('city')
-        state = request.POST.get('state')
-        zip_code = request.POST.get('zip')
+        
 
         order_items = {
             'items': []
@@ -84,7 +113,7 @@ class Order(View):
         send_mail(
             'Thank You For Your Order!',
             body,
-            'dubowhamaan@gmail.com',
+            'example@example.com',
             [email],
             fail_silently=False
         )
