@@ -3,15 +3,6 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.db.models import Q
 from django.core.mail import send_mail
-<<<<<<< HEAD
-from .models import *
-from django.contrib import auth,messages
-
-
-
-
-
-=======
 from .models import MenuItem, Category, OrderModel
 from customer.forms import *
 
@@ -44,7 +35,6 @@ def loginPage(request):
             messages.error(request,"Invalid username or password.")
 
     return render(request,'registration/login.html')
->>>>>>> development
 class Index(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'customer/index.html')
