@@ -35,6 +35,7 @@ def loginPage(request):
             messages.error(request,"Invalid username or password.")
 
     return render(request,'registration/login.html')
+
 class Index(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'customer/index.html')
@@ -86,6 +87,7 @@ class Order(View):
         street = request.POST.get('street')
         city = request.POST.get('city')
 
+
         order_items = {
             'items': []
         }
@@ -126,7 +128,7 @@ class Order(View):
         send_mail(
             'Thank You For Your Order!',
             body,
-            'dubowhamaan@gmail.com',
+            'example@example.com',
             [email],
             fail_silently=False
         )
@@ -137,6 +139,7 @@ class Order(View):
         }
 
         return redirect('order-confirmation', pk=order.pk)
+
 
 
 class OrderConfirmation(View):
@@ -194,5 +197,7 @@ class MenuSearch(View):
 
         return render(request, 'customer/menu.html', context)
 
+
+
+
     
-      

@@ -9,20 +9,23 @@
   </div>
   <div class="container loo">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-5 hei">
         <div class="card border-primary mb-6" style="max-width:25rem;">
           <div class="card-body text-center">
-            <form  method="post" style="font-family:'Times New Roman', Times, serif; " >
+            <form method="post" style="font-family:'Times New Roman', Times, serif; " >
               {% csrf_token %} 
               {% bootstrap_form form%}
               <br>
               <div class="form-group">
-                <button type="submit" class="btn btn-success " style="color:black; font-weight:bold"> Login</button>
+
+                <button type="submit" class="btn btn-success"  style="color:black; font-weight:bold;">Login</button>
+
               </div>
               <input type="hidden" name="next" value="{{next}}">
             </form>
           </div> 
         </div>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
       </div>
     </div>
   </div>
