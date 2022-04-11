@@ -25,17 +25,19 @@ import allauth
 from django.conf import settings
 from django.contrib.auth.views import LoginView,LogoutView
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-     path('restaurant/', include('restaurant.urls')),
+    path('restaurant/', include('restaurant.urls')),
     path('',Index.as_view(),name='index'),
     path('about/',About.as_view(),name='about'),
     path('menu/',Menu.as_view(), name='menu'),
     path('menu/search/', MenuSearch.as_view(), name='menu-search'),
     path('order/',Order.as_view(),name='order'),
+    
 
-    path('accounts/register/',customer_views.register, name='register'),
+    path('register/',customer_views.register, name='register'),
     path('login/',LoginView.as_view(next_page='index'), name='login'),
     path('logout/',LogoutView.as_view(next_page='index'), name='logout'),
 
