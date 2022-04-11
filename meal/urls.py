@@ -17,28 +17,27 @@ from django.contrib import admin
 from django.urls import path
 from customer.views import *
 
-from django.urls import path,include,re_path
+from django.urls import path,include
 from customer import views as customer_views
 from django.conf.urls.static import static
 from customer.views import *
 import allauth
 from django.conf import settings
 from django.contrib.auth.views import LoginView,LogoutView
-from rest_framework_simplejwt import views as jwt_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-     path('restaurant/', include('restaurant.urls')),
-    path(r'api/v1/', include('djoser.urls')),
-    path(r'api/v1/token/login', include('djoser.urls.authtoken')),
+    path('restaurant/', include('restaurant.urls')),
     path('',Index.as_view(),name='index'),
     path('about/',About.as_view(),name='about'),
     path('menu/',Menu.as_view(), name='menu'),
     path('menu/search/', MenuSearch.as_view(), name='menu-search'),
     path('order/',Order.as_view(),name='order'),
+    
 
-    path('accounts/register/',customer_views.register, name='register'),
+    path('register/',customer_views.register, name='register'),
     path('login/',LoginView.as_view(next_page='index'), name='login'),
     path('logout/',LogoutView.as_view(next_page='index'), name='logout'),
 

@@ -126,6 +126,7 @@ class Order(View):
         return redirect('order-confirmation', pk=order.pk)
 
 
+
 class OrderConfirmation(View):
     def get(self, request, pk, *args, **kwargs):
         order = OrderModel.objects.get(pk=pk)
@@ -180,3 +181,8 @@ class MenuSearch(View):
         }
 
         return render(request, 'customer/menu.html', context)
+
+
+
+
+    
